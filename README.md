@@ -1,2 +1,2 @@
 # tasks
-module to organized task
+module to organize tasks
