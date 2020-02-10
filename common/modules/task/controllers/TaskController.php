@@ -165,7 +165,8 @@ class TaskController extends Controller
         ->andFilterWhere(['LIKE','TR.task_name', $searchModel->task_name])
         ->andFilterWhere(['LIKE','TR.date_raised', $searchModel->date_raised])
         ->andFilterWhere(['LIKE','TR.date_done', $searchModel->date_done])
-        ->andFilterWhere(['LIKE','TR.date_target', $searchModel->date_target]);
+        ->andFilterWhere(['LIKE','TR.date_target', $searchModel->date_target])
+        ->orderBy(['TR.date_done' => SORT_DESC]);
 
         $dataProvider2 = new ActiveDataProvider([
             'query' => $data,
