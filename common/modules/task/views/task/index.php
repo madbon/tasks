@@ -144,15 +144,30 @@ table.table tbody tr td
                     }
                 ],
                 [
-                    'label' => 'Days before the target date',
+                    'label' => 'Days based on Target Date',
                     'format' => 'raw',
                     'value' => function($model)
                     {
                         $now = time(); // or your date as well
                         $your_date = strtotime($model['date_target']);
                         $datediff = $your_date - $now;
+                        $date_diff_have_past = $now - $your_date;
 
-                        return !empty($model['date_target']) ? round($datediff / (60 * 60 * 24))." d" : '';
+                        if($model['date_target'] == date('Y-m-d'))
+                        {
+                            return "Today";
+                        }
+                        else
+                        {
+                            if($model['date_target'] < date('Y-m-d'))
+                            {
+                                return !empty($model['date_target']) ? round($date_diff_have_past / (60 * 60 * 24))." day(s) have past" : '';
+                            }
+                            else
+                            {
+                                return !empty($model['date_target']) ? round($datediff / (60 * 60 * 24))." day(s) before the deadline." : '';
+                            }
+                        }
                     }
                 ],
                 [

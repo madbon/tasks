@@ -266,7 +266,13 @@ class TaskController extends Controller
         $status = ArrayHelper::map(TaskStatus::find()->all(), 'code', 'title');
         $project = ArrayHelper::map(TaskProject::find()->all(), 'code', 'title');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            // print_r($model->status_id); exit;
+            if($model->status_id == 5)
+            {
+                $model->is_active = 1;
+            }
+            $model->save();
             \Yii::$app->getSession()->setFlash('success', 'Task has been updated');
             return $this->redirect([$action_id, 'id' => $model->id]);
         }
